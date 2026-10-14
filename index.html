@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lexi – a free online dictionary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f6f4; --ink: #17261f; --muted: #5d6e65; --line: #cfdad3;
+    --accent: #1f6b4f; --mark: #ffe27a; --card: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111a16; --ink: #e6efe9; --muted: #93a79b; --line: #26372f;
+            --accent: #6fd3a5; --mark: #5c4d12; --card: #17231d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.6 "Instrument Sans", system-ui, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 56px 20px 80px; }
+  h1.site { font: 600 28px "Fraunces", Georgia, serif; margin: 0 0 4px; }
+  h1.site a { color: inherit; text-decoration: none; }
+  .tag { color: var(--muted); margin: 0 0 28px; }
+  .search { display: flex; gap: 8px; }
+  input { flex: 1; min-width: 0; padding: 14px 16px; font: inherit; color: var(--ink);
+          background: var(--card); border: 1.5px solid var(--line); border-radius: 10px; }
+  input:focus, button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  button { padding: 0 22px; font: 500 16px "Instrument Sans", sans-serif; cursor: pointer;
+           color: #fff; background: var(--accent); border: 0; border-radius: 10px; }
+  @media (prefers-color-scheme: dark) { button { color: #0c1a14; } }
+  #result { margin-top: 36px; }
+  .word { font: 600 clamp(36px, 8vw, 56px)/1.1 "Fraunces", Georgia, serif; margin: 0;
+          background: linear-gradient(transparent 62%, var(--mark) 62%); display: inline; }
+  .head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+  .phon { color: var(--muted); font-size: 18px; }
+  .play { padding: 6px 14px; font-size: 14px; background: transparent; color: var(--accent);
+          border: 1.5px solid var(--accent); }
+  section.pos { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+  h2 { font: 600 italic 20px "Fraunces", Georgia, serif; color: var(--accent); margin: 0 0 8px; text-transform: none; }
+  ol { padding-left: 22px; margin: 0; }
+  li { margin-bottom: 14px; }
+  .ex { color: var(--muted); font-style: italic; display: block; margin-top: 2px; }
+  .syn { margin-top: 10px; color: var(--muted); font-size: 15px; }
+  .syn a { color: var(--accent); margin-right: 10px; }
+  .msg { color: var(--muted); }
+  footer { margin-top: 60px; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="site"><a href="./">Lexi</a></h1>
+  <p class="tag">Look up any English word.</p>
+
+  <form class="search" id="form" role="search">
+    <input id="q" type="search" placeholder="Type a word, e.g. serendipity" aria-label="Word to look up" autocomplete="off" autofocus>
+    <button type="submit">Search</button>
+  </form>
+
+  <div id="result" aria-live="polite"><p class="msg">Search for a word to see its definitions, examples and synonyms.</p></div>
+
+  <footer>All entries are written and maintained by hand.</footer>
+</main>
+
+<script>
+const form = document.getElementById("form");
+const q = document.getElementById("q");
+const out = document.getElementById("result");
+
+/* ============================================================
+   YOUR OWN ENTRIES: add new words here. Copy a block, change it.
+   Keys must be lowercase. Words not listed here show "No entry found".
+   ============================================================ */
+const CUSTOM = {
+  "lexi": {
+    phonetic: "/ˈlɛk.si/",
+    meanings: [
+      {
+        partOfSpeech: "noun",
+        definitions: [
+          { definition: "The name of this dictionary website.", example: "I looked it up on Lexi." },
+          { definition: "A short form of “lexicon”." }
+        ],
+        synonyms: ["dictionary", "lexicon"]
+      }
+    ]
+  },
+  "example word": {
+    meanings: [
+      {
+        partOfSpeech: "noun",
+        definitions: [{ definition: "Replace this with your own definition." }]
+      }
+    ]
+  }
+};
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+async function lookup(word) {
+  word = word.trim().toLowerCase();
+  if (!word) return;
+  q.value = word;
+  history.replaceState(null, "", "#" + encodeURIComponent(word));
+  document.title = word + " – Lexi";
+  out.innerHTML = '<p class="msg">Looking up “' + esc(word) + '”…</p>';
+  if (CUSTOM[word]) {
+    const c = CUSTOM[word];
+    render([{ word, phonetic: c.phonetic || "", phonetics: [], meanings: c.meanings }]);
+    return;
+  }
+  out.innerHTML = '<p class="msg">No entry found for “' + esc(word) + '”. Check the spelling or try another word.</p>';
+}
+
+function render(entries) {
+  const first = entries[0];
+  const phon = first.phonetic || (first.phonetics.find(p => p.text) || {}).text || "";
+  const audio = (first.phonetics.find(p => p.audio) || {}).audio || "";
+
+  let html = '<div class="head"><h2 class="word" style="font-style:normal;color:inherit;margin:0">' + esc(first.word) + '</h2>';
+  if (phon) html += '<span class="phon">' + esc(phon) + '</span>';
+  if (audio) html += '<button class="play" type="button" data-audio="' + esc(audio) + '">Listen</button>';
+  html += '</div>';
+
+  for (const entry of entries) {
+    for (const m of entry.meanings) {
+      html += '<section class="pos"><h2>' + esc(m.partOfSpeech) + '</h2><ol>';
+      for (const d of m.definitions) {
+        html += '<li>' + esc(d.definition) + (d.example ? '<span class="ex">“' + esc(d.example) + '”</span>' : '') + '</li>';
+      }
+      html += '</ol>';
+      const syns = (m.synonyms || []).slice(0, 8);
+      if (syns.length) {
+        html += '<div class="syn">Synonyms: ' + syns.map(s => '<a href="#' + encodeURIComponent(s) + '">' + esc(s) + '</a>').join("") + '</div>';
+      }
+      html += '</section>';
+    }
+  }
+  out.innerHTML = html;
+}
+
+form.addEventListener("submit", e => { e.preventDefault(); lookup(q.value); });
+out.addEventListener("click", e => {
+  const b = e.target.closest("[data-audio]");
+  if (b) new Audio(b.dataset.audio).play();
+});
+window.addEventListener("hashchange", () => lookup(decodeURIComponent(location.hash.slice(1))));
+if (location.hash.length > 1) lookup(decodeURIComponent(location.hash.slice(1)));
+</script>
+</body>
+</html>
