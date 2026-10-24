@@ -107,7 +107,7 @@ const ENTRIES = [
  {
   "id": "halogen-derivative",
   "vi": "dẫn xuất halogen",
-  "en": "Halogen derivative",
+  "en": "halogen derivative",
   "ipa": "/ˈhæl.ə.dʒen dɪˈrɪv.ə.tɪv/",
   "pos": "noun phrase",
   "defVi": "một hợp chất hữu cơ được hình thành bằng cách thay thế một hoặc nhiều nguyên tử H trong hydrocarbon mạch hở hoặc hydrocarbon thơm bằng một nguyên tử halogen",
@@ -675,7 +675,7 @@ const ENTRIES = [
  {
   "id": "molecular-ion-peak",
   "vi": "peak ion phân tử",
-  "en": "Molecular ion peak",
+  "en": "molecular ion peak",
   "ipa": "/məˈlɛkjələr ˈaɪən pik/",
   "pos": "noun phrase",
   "defVi": "Đỉnh ion phân tử (M⁺) đại diện cho ion được hình thành khi một phân tử mất đi một electron mà không bị phân mảnh.",
@@ -706,7 +706,7 @@ const ENTRIES = [
  },
  {
   "id": "acylic",
-  "vi": "Mạch hở",
+  "vi": "mạch hở",
   "en": "acylic",
   "ipa": "/ˌeɪˈsaɪ.klɪk/",
   "pos": "adjective",
@@ -916,7 +916,7 @@ const ENTRIES = [
  {
   "id": "gradation",
   "vi": "sự biến thiên",
-  "en": "Gradation",
+  "en": "gradation",
   "ipa": "/ɡrəˈdeɪ.ʃən/",
   "pos": "noun",
   "defVi": "một chuỗi các thay đổi hoặc khác biệt nhỏ về tính chất hoặc đặc điểm.",
@@ -958,8 +958,8 @@ const ENTRIES = [
  },
  {
   "id": "the-structural-theory-of-organic-compounds",
-  "vi": "Thuyết cấu tạo hóa học",
-  "en": "The structural theory of organic compounds",
+  "vi": "thuyết cấu tạo hóa học",
+  "en": "the structural theory of organic compounds",
   "ipa": "/ðə ˈstrʌk.tʃər ˌθɪə.ri əv ˌɔː.ɡənˈɪk ˈkɒm.paʊndz/",
   "pos": "noun phrase",
   "defVi": "Thuyết cấu tạo hóa học do nhà hóa học người Nga Aleksandr Mikhailovich Butlerov đề xuất, khẳng định rằng: bản chất và tính chất của các chất hữu cơ phụ thuộc vào thành phần nguyên tố và cấu tạo hóa học của chúng",
@@ -974,8 +974,8 @@ const ENTRIES = [
  },
  {
   "id": "chemical-property",
-  "vi": "Tính chất hóa học",
-  "en": "Chemical property",
+  "vi": "tính chất hóa học",
+  "en": "chemical property",
   "ipa": "/ˈkem.ɪ.kəl ˈprɒp.ə.ti/",
   "pos": "noun",
   "defVi": "Sự biến đổi một chất tạo ra chất mới thể hiện tính chất hóa học của chất đó",
@@ -990,8 +990,8 @@ const ENTRIES = [
  },
  {
   "id": "molecular-structure",
-  "vi": "Cấu tạo phân tử",
-  "en": "Molecular structure",
+  "vi": "cấu tạo phân tử",
+  "en": "molecular structure",
   "ipa": "/məˈlek.jə.lər ˈstrʌk.tʃər/",
   "pos": "noun",
   "defVi": "Sự sắp xếp hình học ba chiều trong không gian của các nguyên tử tạo nên phân tử đó và mạng lưới các liên kết hóa học gắn kết chúng lại với nhau",
@@ -1001,8 +1001,8 @@ const ENTRIES = [
  },
  {
   "id": "geometric-isomerism",
-  "vi": "Đồng phân hình học",
-  "en": "Geometric isomerism",
+  "vi": "đồng phân hình học",
+  "en": "geometric isomerism",
   "ipa": "/ˌdʒiː.əˈmet.rɪk aɪˈsɒm.ər.ɪ.zəm/",
   "pos": "noun",
   "defVi": "là một loại đồng phân lập thể sinh ra do sự phân bố khác nhau của các nguyên tử hoặc nhóm nguyên tử ở hai bên một bộ phận cứng nhắc của phân tử như liên kế đôi hoặc hệ thống vòng no",
@@ -1017,8 +1017,8 @@ const ENTRIES = [
  },
  {
   "id": "optical-isomerism",
-  "vi": "Đồng phân quang học",
-  "en": "Optical isomerism",
+  "vi": "đồng phân quang học",
+  "en": "optical isomerism",
   "ipa": "/ˈɒp.tɪ.kəl aɪˈsɒm.ər.ɪ.zəm/",
   "pos": "noun",
   "defVi": "Những hợp chất có cùng cấu tạo hóa học, có tính chất vật lý và hóa học giống nhau, nhưng do khác nhau về bố trí trong không gian của các nhóm thế xung quanh một trung tâm bất đối nào đó trong phân tử vì vậy khả năng làm quay mặt phẳng ánh sáng phân cực và tính chất sinh hóa khác nhau",
